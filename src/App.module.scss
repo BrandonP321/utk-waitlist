@@ -1,0 +1,148 @@
+$normalFontSize: 1.4rem;
+$titleFontSize: 4.5rem;
+$formTitleFontSize: 1.6rem;
+$inputTopPadding: 0.5rem;
+$inputContainerTopPadding: 0.5rem;
+$inputContainerHeight: calc(2 * $inputTopPadding + $normalFontSize);
+
+.app,
+.content {
+  align-items: center;
+  flex-direction: column;
+}
+
+.title,
+.formTitle,
+.formSubtext {
+  text-align: center;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(white, 0.85);
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 55rem;
+  position: relative;
+}
+
+.title {
+  font-size: $titleFontSize;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.waitlistForm {
+  width: 100%;
+  max-width: 35rem;
+  margin: 7rem 0 4rem 0;
+
+  .formTitle {
+    margin-bottom: 1rem;
+    font-size: $formTitleFontSize;
+  }
+
+  .inputContainer {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    border-radius: 50rem;
+    display: flex;
+    padding: $inputContainerTopPadding;
+    position: relative;
+    background-color: white;
+  }
+
+  .input {
+    font-size: $normalFontSize;
+    line-height: $normalFontSize;
+    padding: $inputTopPadding 2rem;
+    flex-grow: 1;
+    border-radius: inherit;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .joinBtn {
+    font-size: $normalFontSize;
+    background-color: #37bcf7;
+    padding: 0rem 3rem;
+    border-radius: inherit;
+    color: white;
+    transition: all 0.15s;
+
+    &:hover:not(:disabled) {
+      background-color: #2f9ed8;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &.loading {
+      pointer-events: none;
+      background-color: #62caf7b2;
+    }
+  }
+
+  .error {
+    color: red;
+    font-size: 1.2rem;
+    margin: 0.5rem 2.25rem 0 2.25rem;
+  }
+}
+
+.subtext {
+  font-size: $normalFontSize;
+}
+
+.successMsg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.25s;
+
+  &.show {
+    pointer-events: all;
+    opacity: 1;
+  }
+
+  .icon {
+    margin-right: 0.5rem;
+  }
+
+  padding: 0.25rem;
+  font-size: $normalFontSize;
+  color: #4caf50;
+}
