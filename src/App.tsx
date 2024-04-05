@@ -7,7 +7,7 @@ import axios, { AxiosError } from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/pro-solid-svg-icons";
 import classNames from "classnames";
-import bgImg from "./media/wedding4.jpg";
+import bgImg from "./media/wedding-bands.jpg";
 
 function App() {
   return (
