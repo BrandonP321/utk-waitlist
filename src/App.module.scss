@@ -1,29 +1,86 @@
-$normalFontSize: 1.4rem;
-$titleFontSize: 4.5rem;
-$formTitleFontSize: 1.6rem;
-$inputTopPadding: 0.5rem;
-$inputContainerTopPadding: 0.5rem;
-$inputContainerHeight: calc(2 * $inputTopPadding + $normalFontSize);
+$normalFontSizeVar: --font-size-normal;
+$normalFontSize: var($normalFontSizeVar);
+$titleFontSizeVar: --font-size-title;
+$titleFontSize: var($titleFontSizeVar);
+$formTitleFontSizeVar: --font-size-form-title;
+$formTitleFontSize: var($formTitleFontSizeVar);
+$inputTopPaddingVar: --input-top-padding;
+$inputTopPadding: var($inputTopPaddingVar);
+$inputSidePaddingVar: --input-side-padding;
+$inputSidePadding: var($inputSidePaddingVar);
+$inputContainerTopPaddingVar: --input-container-top-padding;
+$inputContainerTopPadding: var(--input-container-top-padding);
+
+@mixin breakpoint($size) {
+  @media (max-width: $size) {
+    @content;
+  }
+}
+
+@mixin mediumVW() {
+  @include breakpoint(992px) {
+    @content;
+  }
+}
+
+@mixin mobileVW() {
+  @include breakpoint(768px) {
+    @content;
+  }
+}
+
+@mixin tinyVW() {
+  @include breakpoint(480px) {
+    @content;
+  }
+}
 
 .app,
 .content {
+  display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
 }
 
 .title,
 .formTitle,
-.formSubtext {
+.subtext {
   text-align: center;
 }
 
 .app {
-  display: flex;
-  justify-content: center;
   height: 100%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  #{$normalFontSizeVar}: 1.4rem;
+  #{$titleFontSizeVar}: 4.5rem;
+  #{$formTitleFontSizeVar}: 1.6rem;
+  #{$inputTopPaddingVar}: 0.5rem;
+  #{$inputContainerTopPaddingVar}: 0.5rem;
+  #{$inputSidePaddingVar}: 2rem;
+
+  @include mediumVW() {
+    #{$normalFontSizeVar}: 1.2rem;
+    #{$titleFontSizeVar}: 3rem;
+    #{$formTitleFontSizeVar}: 1.6rem;
+    #{$inputTopPaddingVar}: 0.5rem;
+    #{$inputContainerTopPaddingVar}: 0.5rem;
+  }
+
+  @include mobileVW() {
+    justify-content: start;
+    padding: 2rem 0 4rem 0;
+    #{$normalFontSizeVar}: 1.2rem;
+    #{$titleFontSizeVar}: 1.75rem;
+    #{$formTitleFontSizeVar}: 1.3rem;
+    #{$inputTopPaddingVar}: 0.5rem;
+    #{$inputSidePaddingVar}: 1rem;
+    // #{$inputTopPaddingVar}: 0.5rem;
+    // #{$inputContainerTopPaddingVar}: 0.5rem;
+  }
 }
 
 .overlay {
@@ -36,16 +93,20 @@ $inputContainerHeight: calc(2 * $inputTopPadding + $normalFontSize);
 }
 
 .content {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 90%;
   max-width: 55rem;
   position: relative;
+
+  @include mobileVW() {
+    height: 100%;
+    justify-content: space-between;
+  }
 }
 
 .title {
   font-size: $titleFontSize;
+  font-weight: 500;
 }
 
 form {
@@ -58,6 +119,10 @@ form {
   width: 100%;
   max-width: 35rem;
   margin: 7rem 0 4rem 0;
+
+  @include mobileVW() {
+    margin: 2rem 0;
+  }
 
   .formTitle {
     margin-bottom: 1rem;
@@ -76,7 +141,7 @@ form {
   .input {
     font-size: $normalFontSize;
     line-height: $normalFontSize;
-    padding: $inputTopPadding 2rem;
+    padding: $inputTopPadding $inputSidePadding;
     flex-grow: 1;
     border-radius: inherit;
 
@@ -89,9 +154,26 @@ form {
     font-size: $normalFontSize;
     background-color: #37bcf7;
     padding: 0rem 3rem;
-    border-radius: inherit;
+    border-radius: 10rem;
     color: white;
     transition: all 0.15s;
+
+    &.mobile {
+      display: none;
+      padding: 0.5rem 2rem;
+      width: 100%;
+      text-align: center;
+
+      @include mobileVW() {
+        display: initial;
+      }
+    }
+
+    &:not(.mobile) {
+      @include mobileVW() {
+        display: none;
+      }
+    }
 
     &:hover:not(:disabled) {
       background-color: #2f9ed8;
@@ -105,12 +187,26 @@ form {
       pointer-events: none;
       background-color: #62caf7b2;
     }
+
+    &.hide {
+      opacity: 0;
+    }
   }
 
   .error {
     color: red;
-    font-size: 1.2rem;
-    margin: 0.5rem 2.25rem 0 2.25rem;
+    font-size: $normalFontSize;
+    margin-top: 0.5rem;
+    padding: 0 $inputSidePadding;
+  }
+}
+
+.mobileJoinBtnWrapper {
+  display: flex;
+  justify-content: flex-end;
+
+  @include mobileVW() {
+    margin-top: 0.5rem;
   }
 }
 

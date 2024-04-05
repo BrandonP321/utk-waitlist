@@ -7,3 +7,11 @@ body,
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  /* Ensures that autofill styles don't get applied while user is still on page */
+  transition: all 99999s 99999s, border-color 0.25s;
+}

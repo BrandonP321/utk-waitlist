@@ -14,9 +14,11 @@ function App() {
     <div className={styles.app} style={{ backgroundImage: `url(${bgImg})` }}>
       <div className={styles.overlay} />
       <div className={styles.content}>
-        <h1 className={styles.title}>{loc.title}</h1>
+        <div>
+          <h1 className={styles.title}>{loc.title}</h1>
 
-        <JoinForm />
+          <JoinForm />
+        </div>
 
         <p className={styles.subtext}>{loc.subtext}</p>
       </div>
@@ -81,16 +83,16 @@ function JoinForm() {
                   className={styles.input}
                   disabled={loading}
                 />
-                <button
-                  className={classNames(
-                    styles.joinBtn,
-                    loading && styles.loading
-                  )}
-                  type="submit"
-                  disabled={!email || loading}
-                >
-                  {loc.joinBtn}
-                </button>
+                <JoinBtn email={email} loading={loading} />
+              </div>
+
+              <div className={styles.mobileJoinBtnWrapper}>
+                <JoinBtn
+                  email={email}
+                  loading={loading}
+                  hide={isSubscribeSuccess}
+                  mobile
+                />
               </div>
 
               {(errors.email || customError) && (
@@ -101,6 +103,33 @@ function JoinForm() {
         );
       }}
     </Formik>
+  );
+}
+
+function JoinBtn({
+  email,
+  loading,
+  mobile = false,
+  hide = false,
+}: {
+  loading: boolean;
+  email: string;
+  mobile?: boolean;
+  hide?: boolean;
+}) {
+  return (
+    <button
+      className={classNames(
+        styles.joinBtn,
+        loading && styles.loading,
+        mobile && styles.mobile,
+        hide && styles.hide
+      )}
+      type="submit"
+      disabled={!email || loading}
+    >
+      {loc.joinBtn}
+    </button>
   );
 }
 
