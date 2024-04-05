@@ -113,11 +113,7 @@ function SuccessMsg({ show }: { show: boolean }) {
   );
 }
 function subscribeEmail(email: string) {
-  return axios.post(
-    process.env.REACT_APP_SUBSCRIBE_ENDPOINT!,
-    { email },
-    { withCredentials: true }
-  );
+  return axios.post(process.env.REACT_APP_SUBSCRIBE_ENDPOINT!, { email });
 }
 
 export default App;
