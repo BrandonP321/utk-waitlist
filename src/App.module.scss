@@ -35,6 +35,12 @@ $inputContainerTopPadding: var(--input-container-top-padding);
   }
 }
 
+.title,
+.formTitle,
+.subtext {
+  text-shadow: 0 0 0.5rem rgba(white, 0.5);
+}
+
 .app,
 .content {
   display: flex;
@@ -78,8 +84,6 @@ $inputContainerTopPadding: var(--input-container-top-padding);
     #{$formTitleFontSizeVar}: 1.3rem;
     #{$inputTopPaddingVar}: 0.5rem;
     #{$inputSidePaddingVar}: 1rem;
-    // #{$inputTopPaddingVar}: 0.5rem;
-    // #{$inputContainerTopPaddingVar}: 0.5rem;
   }
 }
 
@@ -89,7 +93,13 @@ $inputContainerTopPadding: var(--input-container-top-padding);
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(white, 0.85);
+  background-color: rgba(white, 0.75);
+  backdrop-filter: blur(1rem);
+  transition: all 2s;
+
+  &.loaded {
+    backdrop-filter: blur(0.2rem);
+  }
 }
 
 .content {

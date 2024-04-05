@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./App.module.scss";
 import loc from "./loc";
 import { Form, Formik, Field } from "formik";
@@ -8,11 +8,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/pro-solid-svg-icons";
 import classNames from "classnames";
 import bgImg from "./media/wedding-bands.jpg";
+import lowResBgImg from "./media/wedding-bands-mini.jpg";
 
 function App() {
+  const bgDiv = useRef<HTMLDivElement>(null);
+  const [bgLoaded, setBgLoaded] = useState(false);
+
+  useEffect(() => {
+    const ele = bgDiv.current;
+    const image = bgDiv.current?.getAttribute("data-src")!;
+
+    const img = new Image();
+
+    img.src = image;
+
+    img.onload = () => {
+      if (ele) {
+        ele.style.backgroundImage = `url(${image})`;
+        setBgLoaded(true);
+      }
+    };
+  }, []);
+
   return (
-    <div className={styles.app} style={{ backgroundImage: `url(${bgImg})` }}>
-      <div className={styles.overlay} />
+    <div
+      ref={bgDiv}
+      className={classNames(styles.app)}
+      style={{ backgroundImage: `url(${lowResBgImg})` }}
+      data-src={bgImg}
+    >
+      <div className={classNames(styles.overlay, bgLoaded && styles.loaded)} />
       <div className={styles.content}>
         <div>
           <h1 className={styles.title}>{loc.title}</h1>
